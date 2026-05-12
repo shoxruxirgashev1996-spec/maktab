@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "News": {
+      "title": "News Item",
+      "description": "A news article or update about the school.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "image": { "type": "string" },
+        "category": { "type": "string", "enum": ["General", "Event", "Achievement", "Announcement"] }
+      },
+      "required": ["title", "content", "date"]
+    },
+    "Admission": {
+      "title": "Admission Application",
+      "description": "A registration request from a potential student.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "phone": { "type": "string" },
+        "birthDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "accepted", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "phone", "birthDate"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Important school announcements.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["title", "date", "description"]
+    },
+    "ContactMessage": {
+       "title": "Contact Message",
+       "description": "Messages sent from the contact form.",
+       "type": "object",
+       "properties": {
+         "name": { "type": "string" },
+         "email": { "type": "string" },
+         "message": { "type": "string" },
+         "createdAt": { "type": "string", "format": "date-time" }
+       },
+       "required": ["name", "email", "message"]
+    },
+    "Stats": {
+      "title": "School Stats",
+      "description": "Key statistics shown on the home page.",
+      "type": "object",
+      "properties": {
+        "students": { "type": "string" },
+        "teachers": { "type": "string" },
+        "achievements": { "type": "string" },
+        "clubs": { "type": "string" }
+      }
+    },
+    "Banner": {
+      "title": "Banner",
+      "description": "A sliding banner for the home page.",
+      "type": "object",
+      "properties": {
+        "image": { "type": "string" },
+        "title": { "type": "object", "properties": { "uz": { "type": "string" }, "ru": { "type": "string" }, "en": { "type": "string" } } },
+        "subtitle": { "type": "object", "properties": { "uz": { "type": "string" }, "ru": { "type": "string" }, "en": { "type": "string" } } },
+        "active": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "required": ["image", "title", "subtitle"]
+    }
+  },
+  "firestore": {
+    "/banners/{bannerId}": {
+      "schema": "Banner",
+      "description": "Collection of sliding banners."
+    },
+    "/news/{newsId}": {
+      "schema": "News",
+      "description": "Collection of school news articles."
+    },
+    "/admissions/{admissionId}": {
+      "schema": "Admission",
+      "description": "Collection of admission requests."
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "School announcements."
+    },
+    "/contact_messages/{messageId}": {
+       "schema": "ContactMessage",
+       "description": "User feedback and inquiries."
+    },
+    "/stats/main": {
+      "schema": "Stats",
+      "description": "Main stats document."
+    }
+  }
+}

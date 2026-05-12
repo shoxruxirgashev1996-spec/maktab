@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Redis for caching and rate limiting (production)
+  redis:
+    image: redis:7-alpine
+    container_name: school-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL alternative to Firestore (optional future)
+  postgres:
+    image: postgres:15-alpine
+    container_name: school-postgres
+    environment:
+      POSTGRES_DB: school_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API server
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: school-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      FRONTEND_URL: http://localhost:5173
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://admin:dev_password@postgres:5432/school_db
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Frontend development server
+  frontend:
+    image: node:18-alpine
+    container_name: school-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    working_dir: /app/frontend
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    command: npm run dev
+    depends_on:
+      - backend
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  default:
+    name: school-network

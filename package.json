@@ -1,0 +1,33 @@
+{
+  "name": "school-management-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Production-ready fullstack school management system",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=backend & npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
+    "start": "npm run start --workspace=backend",
+    "type-check": "npm run type-check --workspace=backend && npm run type-check --workspace=frontend",
+    "backend:dev": "npm run dev --workspace=backend",
+    "backend:start": "npm run start --workspace=backend",
+    "frontend:dev": "npm run dev --workspace=frontend",
+    "frontend:build": "npm run build --workspace=frontend"
+  },
+  "keywords": [
+    "school",
+    "management",
+    "system",
+    "express",
+    "react",
+    "firebase"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | <%= settings.siteName %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary: <%= settings.primaryColor %>;
+            --secondary: <%= settings.secondaryColor %>;
+        }
+        .bg-primary { background-color: var(--primary); }
+        .text-primary { color: var(--primary); }
+        .border-primary { border-color: var(--primary); }
+        .hover-bg-primary:hover { background-color: var(--primary); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+    
+    <!-- Navbar -->
+    <nav class="bg-primary text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="/" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-all shadow-lg overflow-hidden">
+                        <img src="<%= settings.logo %>" alt="Logo" class="w-full h-full object-contain p-2">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-base font-black uppercase tracking-tight leading-none"><%= settings.siteName.split(' ')[0] %></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] leading-none mt-1 text-blue-200"><%= settings.siteName.split(' ').slice(1).join(' ') %></span>
+                    </div>
+                </a>
+                
+                <div class="hidden lg:flex items-center space-x-2">
+                    <a href="/" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/' ? 'bg-white/20' : '' %>"><%= t('home') %></a>
+                    <a href="/about" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/about' ? 'bg-white/20' : '' %>"><%= t('about') %></a>
+                    <a href="/news" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/news' ? 'bg-white/20' : '' %>"><%= t('news') %></a>
+                    <a href="/admission" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/admission' ? 'bg-white/20' : '' %>"><%= t('admission') %></a>
+                    <a href="/gallery" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/gallery' ? 'bg-white/20' : '' %>"><%= t('gallery') %></a>
+                    <a href="/contact" class="px-3 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all hover:bg-white/10 <%= path === '/contact' ? 'bg-white/20' : '' %>"><%= t('contact') %></a>
+                    
+                    <div class="w-px h-6 bg-white/20 mx-2"></div>
+
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-1 bg-white/10 rounded-full p-1">
+                        <a href="?lang=uz" class="px-2 py-1 rounded-full text-[9px] font-black uppercase <%= lang === 'uz' ? 'bg-white text-primary' : 'hover:bg-white/10' %>">UZ</a>
+                        <a href="?lang=ru" class="px-2 py-1 rounded-full text-[9px] font-black uppercase <%= lang === 'ru' ? 'bg-white text-primary' : 'hover:bg-white/10' %>">RU</a>
+                        <a href="?lang=en" class="px-2 py-1 rounded-full text-[9px] font-black uppercase <%= lang === 'en' ? 'bg-white text-primary' : 'hover:bg-white/10' %>">EN</a>
+                    </div>
+                    
+                    <div class="w-px h-6 bg-white/20 mx-2"></div>
+                    
+                    <% if (admin) { %>
+                        <a href="/admin/dashboard" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all flex items-center space-x-2">
+                            <i class="fas fa-chart-line"></i>
+                            <span><%= t('panel') %></span>
+                        </a>
+                    <% } else { %>
+                        <a href="/admin/login" class="px-4 py-2 rounded-xl bg-white/10 text-white text-[10px] font-black uppercase tracking-widest hover:bg-white/20 transition-all flex items-center space-x-2">
+                            <i class="fas fa-user-lock"></i>
+                            <span><%= t('login') %></span>
+                        </a>
+                    <% } %>
+                </div>
+
+                <div class="lg:hidden">
+                    <button class="text-white text-2xl" id="menuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-[#003366] z-[60] flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300">
+        <button id="closeBtn" class="absolute top-8 right-8 text-white text-3xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="/" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('home') %></a>
+        <a href="/about" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('about') %></a>
+        <a href="/news" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('news') %></a>
+        <a href="/admission" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('admission') %></a>
+        <a href="/gallery" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('gallery') %></a>
+        <a href="/contact" class="text-2xl font-black text-white uppercase tracking-widest"><%= t('contact') %></a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <%- body %>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#001529] text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-[#001529] text-xl"></i>
+                        </div>
+                        <span class="text-base font-black uppercase tracking-tight">Ixtisoslashtirilgan Maktab</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Prezident ta'lim muassasalari agentligi tizimidagi ixtisoslashtirilgan maktab — zamonaviy ta'lim va yuksak ma'naviyat maskani.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-all"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-700 transition-all"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-black uppercase mb-6"><%= t('useful_links') %></h4>
+                    <ul class="space-y-4 text-sm font-bold text-gray-400">
+                        <li><a href="/admission" class="hover:text-white transition-colors"><%= t('admission') %></a></li>
+                        <li><a href="/news" class="hover:text-white transition-colors"><%= t('news') %></a></li>
+                        <li><a href="/budget" class="hover:text-white transition-colors">Budjet</a></li>
+                        <li><a href="/about" class="hover:text-white transition-colors"><%= t('about') %></a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-black uppercase mb-6"><%= t('contact_us') %></h4>
+                    <ul class="space-y-4 text-sm font-bold text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span><%= t('address') %></span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+998 (71) 123-45-67</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@piima-school.uz</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-black uppercase mb-6"><%= t('work_time') %></h4>
+                    <p class="text-gray-400 text-sm font-bold mb-4"><%= t('monday_saturday') %></p>
+                    <p class="text-2xl font-black text-white tracking-widest">08:00 — 18:00</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-10 text-center text-xs font-bold text-gray-500 uppercase tracking-widest">
+                &copy; 2024 Ixtisoslashtirilgan Maktab. <%= t('all_rights_reserved') %>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<section class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+            <div class="lg:col-span-12 bg-gray-50 rounded-[40px] p-10 border border-gray-100 flex flex-col items-center justify-center">
+                <h3 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-8 self-center"><%= lang === 'uz' ? 'Moliyaviy ma\'lumotlar' : (lang === 'ru' ? 'Финансовая информация' : 'Financial data') %></h3>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-[40px] p-10 border border-gray-100 overflow-hidden">
+            <h3 class="text-xl font-black text-gray-900 uppercase tracking-tight mb-8">Xarajatlar jadvali</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-white text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        <tr>
+                            <th class="px-8 py-5">Yo'nalish</th>
+                            <th class="px-8 py-5">Turi</th>
+                            <th class="px-8 py-5">Sana</th>
+                            <th class="px-8 py-5 text-right">Summa (so'm)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white">
+                        <% data.forEach(item => { %>
+                        <tr class="hover:bg-white transition-colors">
+                            <td class="px-8 py-5 font-bold text-gray-900"><%= item.category %></td>
+                            <td class="px-8 py-5">
+                                <span class="px-3 py-1 bg-<%= item.type === 'income' ? 'emerald' : 'red' %>-100 text-<%= item.type === 'income' ? 'emerald' : 'red' %>-600 rounded-full text-[10px] font-black uppercase">
+                                    <%= item.type === 'income' ? (lang === 'uz' ? 'Daromad' : 'Доход') : (lang === 'uz' ? 'Xarajat' : 'Расход') %>
+                                </span>
+                            </td>
+                            <td class="px-8 py-5 text-xs text-gray-400 font-bold uppercase"><%= new Date(item.date).toLocaleDateString() %></td>
+                            <td class="px-8 py-5 text-right font-black text-gray-900"><%= item.amount.toLocaleString() %></td>
+                        </tr>
+                        <% }) %>
+                        <% if (data.length === 0) { %>
+                            <tr>
+                                <td colspan="4" class="px-8 py-10 text-center text-gray-400 font-bold uppercase tracking-widest"><%= lang === 'uz' ? 'Ma\'lumotlar topilmadi' : 'Данных не найдено' %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

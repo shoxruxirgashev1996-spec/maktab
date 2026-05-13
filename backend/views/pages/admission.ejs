@@ -1,0 +1,82 @@
+<!-- Page Header -->
+<section class="bg-primary text-white py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-blue-600/10 mix-blend-overlay"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight"><%= t('admission') %></h1>
+        <p class="text-blue-100 text-lg max-w-2xl mx-auto font-medium">
+            <%= t('admission_desc') %>
+        </p>
+    </div>
+</section>
+
+<!-- Admission Content -->
+<section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <!-- Requirements -->
+        <div class="space-y-12">
+            <div>
+                <h2 class="text-3xl font-black text-gray-900 mb-6 uppercase tracking-tight"><%= t('admission_reqs') %></h2>
+                <div class="w-20 h-1.5 bg-primary rounded-full"></div>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Accordion Items -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="flex items-center space-x-6">
+                        <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 uppercase tracking-tight"><%= t('required_docs') %></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="flex items-center space-x-6">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 uppercase tracking-tight"><%= t('age_limit') %></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="bg-white rounded-[48px] p-10 lg:p-16 border border-gray-100 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+            <div class="mb-12">
+                <h3 class="text-2xl font-black text-gray-900 mb-4 uppercase tracking-tight"><%= t('apply') %></h3>
+                <p class="text-gray-400 text-sm font-medium"><%= t('online_app_sub') %></p>
+            </div>
+            
+            <form action="/admission" method="POST" class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1"><%= t('full_name') %></label>
+                        <input type="text" name="first_name" required class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1"><%= lang === 'uz' ? 'Familiya' : (lang === 'ru' ? 'Фамилия' : 'Last Name') %></label>
+                        <input type="text" name="last_name" required class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                    </div>
+                </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1"><%= t('phone') %></label>
+                        <input type="tel" name="phone" required class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium" placeholder="+998 .. ... .. ..">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1"><%= t('birth_date') %></label>
+                    <input type="date" name="birth_date" required class="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                </div>
+                <button type="submit" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-blue-900/20 group">
+                    <span><%= t('send') %></span>
+                    <i class="fas fa-paper-plane ml-3 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

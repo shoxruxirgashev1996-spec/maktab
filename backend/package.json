@@ -2,13 +2,11 @@
   "name": "@school/backend",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
-  "main": "dist/src/server.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "start": "node dist/src/server.js",
-    "preview": "tsx src/server.ts",
+    "start": "node dist/index.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -20,7 +18,8 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^17.4.2",
     "firebase": "^12.13.0",
-    "express-validator": "^7.3.2"
+    "express-validator": "^7.3.2",
+    "ejs": "^3.1.10"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
@@ -28,7 +27,9 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/cors": "^2.8.17",
     "@types/compression": "^1.7.5",
+    "@types/ejs": "^3.1.5",
     "typescript": "~5.8.2",
-    "tsx": "^4.21.0"
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.1.7"
   }
 }

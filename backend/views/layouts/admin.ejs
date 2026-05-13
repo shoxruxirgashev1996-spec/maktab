@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-[#003366] text-white fixed h-full z-50 transition-all duration-300">
+        <div class="p-8">
+            <div class="flex items-center space-x-3 mb-10">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-[#003366] text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-black uppercase tracking-tight">Admin Shell</span>
+                    <span class="text-[8px] font-bold uppercase tracking-[0.2em] text-blue-300">Maktab boshqaruvi</span>
+                </div>
+            </div>
+
+            <nav class="space-y-2">
+                <a href="/admin/dashboard" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/dashboard' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-th-large w-5"></i>
+                    <span>Umumiy</span>
+                </a>
+                <a href="/admin/news" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path.includes('/admin/news') ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-newspaper w-5"></i>
+                    <span>Yangiliklar</span>
+                </a>
+                <a href="/admin/banners" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/banners' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-images w-5"></i>
+                    <span>Bannerlar</span>
+                </a>
+                <a href="/admin/applications" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/applications' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-file-signature w-5"></i>
+                    <span>Arizalar</span>
+                </a>
+                <a href="/admin/budget" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/budget' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-chart-pie w-5"></i>
+                    <span>Budjet</span>
+                </a>
+                <a href="/admin/messages" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/messages' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-envelope w-5"></i>
+                    <span>Xabarlar</span>
+                </a>
+                <div class="pt-6 pb-2 px-4 text-[10px] font-black text-blue-300 uppercase tracking-widest">Tizim</div>
+                <a href="/admin/settings" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/settings' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-cog w-5"></i>
+                    <span>Sozlamalar</span>
+                </a>
+                <% if (admin.role === 'superadmin') { %>
+                <a href="/admin/admins" class="flex items-center space-x-4 px-4 py-3 rounded-xl transition-all font-bold text-sm uppercase tracking-wider <%= path === '/admin/admins' ? 'bg-white/10 text-white shadow-lg' : 'text-blue-200 hover:bg-white/5' %>">
+                    <i class="fas fa-user-shield w-5"></i>
+                    <span>Adminlar</span>
+                </a>
+                <% } %>
+            </nav>
+        </div>
+
+        <div class="absolute bottom-8 left-8 right-8">
+            <a href="/admin/logout" class="flex items-center space-x-4 px-4 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all font-bold text-sm uppercase tracking-wider">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Chiqish</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow ml-72 p-12">
+        <header class="flex justify-between items-center mb-12">
+            <div>
+                <h1 class="text-3xl font-black text-gray-900 uppercase tracking-tight"><%= title %></h1>
+                <p class="text-gray-400 font-bold uppercase text-[10px] tracking-[0.2em] mt-1">Hush kelibsiz, <%= admin.username %></p>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <a href="/" target="_blank" class="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-400 font-bold text-xs uppercase tracking-widest hover:bg-white transition-all flex items-center space-x-2">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Saytni ko'rish</span>
+                </a>
+                <div class="w-12 h-12 bg-gray-200 rounded-2xl flex items-center justify-center overflow-hidden">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=003366&color=fff" alt="Admin">
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <%- body %>
+        </section>
+    </main>
+
+</body>
+</html>

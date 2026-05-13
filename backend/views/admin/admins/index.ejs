@@ -1,0 +1,88 @@
+<div class="space-y-8">
+    <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight uppercase">Adminlar boshqaruvi</h2>
+        <button onclick="document.getElementById('addAdminModal').classList.remove('hidden')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-blue-900/20 flex items-center space-x-2">
+            <i class="fas fa-plus"></i>
+            <span>Yangi admin</span>
+        </button>
+    </div>
+
+    <!-- Admins Table -->
+    <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-gray-50 border-b border-gray-100">
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Foydalanuvchi nomi</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Roli</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Qo'shilgan sana</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Amallar</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                <% admins.forEach(a => { %>
+                    <tr class="hover:bg-gray-50/50 transition-colors group">
+                        <td class="px-8 py-5">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="font-bold text-gray-900"><%= a.username %></span>
+                            </div>
+                        </td>
+                        <td class="px-8 py-5">
+                            <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider <%= a.role === 'superadmin' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600' %>">
+                                <%= a.role %>
+                            </span>
+                        </td>
+                        <td class="px-8 py-5 text-sm text-gray-500 font-medium tracking-tight">
+                            <%= new Date(a.createdAt).toLocaleDateString() %>
+                        </td>
+                        <td class="px-8 py-5 text-right">
+                            <% if (a.role !== 'superadmin') { %>
+                            <form action="/admin/admins/<%= a.id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('Haqiqatan ham o\'chirmoqchimisiz?')">
+                                <button type="submit" class="p-3 text-red-400 hover:text-red-600 transition-colors">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                            <% } else { %>
+                                <span class="text-[10px] font-bold text-gray-300 uppercase italic">Olinmas</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="addAdminModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-[40px] shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+            <div class="px-8 py-6 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                <h3 class="text-xl font-black text-gray-900 uppercase">Yangi admin</h3>
+                <button onclick="document.getElementById('addAdminModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="/admin/admins" method="POST" class="p-8 space-y-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Foydalanuvchi nomi</label>
+                    <input type="text" name="username" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Parol</label>
+                    <input type="password" name="password" required class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Roli</label>
+                    <select name="role" class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-medium">
+                        <option value="admin">Admin</option>
+                        <option value="superadmin">Super Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-blue-900/20 mt-4">
+                    Saqlash
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

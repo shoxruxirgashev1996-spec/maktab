@@ -1,0 +1,72 @@
+<div class="space-y-8">
+    <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-black text-gray-900 tracking-tight uppercase">Arizalar ro'yxati</h2>
+    </div>
+
+    <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 overflow-hidden">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-gray-50 border-b border-gray-100">
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">F.I.SH</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Telefon</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">Sana</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Holat</th>
+                    <th class="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Amallar</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                <% apps.forEach(a => { %>
+                    <tr class="hover:bg-gray-50/50 transition-colors group">
+                        <td class="px-8 py-5">
+                            <div class="font-bold text-gray-900 uppercase tracking-tight"><%= a.first_name %> <%= a.last_name %></div>
+                            <div class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">ID: <%= a.id.slice(-6).toUpperCase() %></div>
+                        </td>
+                        <td class="px-8 py-5 text-sm font-bold text-gray-600">
+                            <%= a.phone %>
+                        </td>
+                        <td class="px-8 py-5 text-sm text-gray-400 font-medium">
+                            <%= new Date(a.createdAt).toLocaleDateString() %>
+                        </td>
+                        <td class="px-8 py-5 text-center">
+                            <span class="px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest 
+                                <%= a.status === 'pending' ? 'bg-orange-100 text-orange-600' : 
+                                   a.status === 'accepted' ? 'bg-emerald-100 text-emerald-600' : 
+                                   'bg-red-100 text-red-600' %>">
+                                <%= a.status %>
+                            </span>
+                        </td>
+                        <td class="px-8 py-5 text-right">
+                            <div class="flex items-center justify-end space-x-2">
+                                <form action="/admin/applications/<%= a.id %>/status?_method=PUT" method="POST" class="inline">
+                                    <input type="hidden" name="status" value="accepted">
+                                    <button type="submit" class="p-2 text-emerald-400 hover:text-emerald-600 transition-colors" title="Qabul qilish">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </form>
+                                <form action="/admin/applications/<%= a.id %>/status?_method=PUT" method="POST" class="inline">
+                                    <input type="hidden" name="status" value="rejected">
+                                    <button type="submit" class="p-2 text-orange-400 hover:text-orange-600 transition-colors" title="Rad etish">
+                                        <i class="fas fa-times-circle"></i>
+                                    </button>
+                                </form>
+                                <form action="/admin/applications/<%= a.id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('Haqiqatan ham o\'chirmoqchimisiz?')">
+                                    <button type="submit" class="p-2 text-red-400 hover:text-red-600 transition-colors" title="O'chirish">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <% if (apps.length === 0) { %>
+            <div class="p-20 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center text-gray-200 text-3xl mb-4">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <div class="text-sm font-black text-gray-400 uppercase tracking-widest">Hozircha arizalar mavjud emas</div>
+            </div>
+        <% } %>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<!-- Hero Header -->
+<section class="bg-primary text-white py-24 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tighter mb-6"><%= lang === 'uz' ? 'MAKTAB HAQIDA' : (lang === 'ru' ? 'О ШКОЛЕ' : 'ABOUT SCHOOL') %></h1>
+        <div class="flex items-center justify-center space-x-4 text-xs sm:text-sm font-black uppercase tracking-widest opacity-80">
+            <a href="/" class="hover:text-yellow-400 transition-colors"><%= lang === 'uz' ? 'BOSH SAHIFA' : (lang === 'ru' ? 'ГЛАВНАЯ' : 'HOME') %></a>
+            <i class="fas fa-chevron-right text-[10px]"></i>
+            <span class="text-yellow-400"><%= lang === 'uz' ? 'MAKTAB HAQIDA' : (lang === 'ru' ? 'О ШКОЛЕ' : 'ABOUT') %></span>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="aspect-square rounded-[60px] overflow-hidden shadow-2xl relative z-10">
+                    <img src="<%= settings.logo %>" class="w-full h-full object-contain p-12 bg-gray-50" alt="About">
+                </div>
+                <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-yellow-400 rounded-[40px] -z-0 hidden sm:block"></div>
+                <div class="absolute -top-10 -left-10 w-40 h-40 border-8 border-primary rounded-full -z-0 opacity-20"></div>
+            </div>
+            
+            <div class="space-y-10">
+                <div class="space-y-4">
+                    <h2 class="text-xs font-black text-primary uppercase tracking-[0.3em]">
+                        <%= t('key_to_success') %>
+                    </h2>
+                    <h3 class="text-3xl sm:text-5xl font-black text-gray-900 leading-none uppercase tracking-tighter">
+                        <%= settings.siteName %>
+                    </h3>
+                </div>
+                
+                <p class="text-lg text-gray-600 leading-relaxed font-medium">
+                    <%= t('about_school_desc') %>
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-primary shrink-0">
+                            <i class="fas fa-check-circle text-xl"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="font-black text-gray-900 uppercase text-sm"><%= t('modern_lab') %></h4>
+                            <p class="text-xs text-gray-500 font-medium tracking-tight">Xalqaro standartlarga mos jihozlar</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-yellow-50 rounded-2xl flex items-center justify-center text-yellow-600 shrink-0">
+                            <i class="fas fa-certificate text-xl"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="font-black text-gray-900 uppercase text-sm"><%= t('international_certs') %></h4>
+                            <p class="text-xs text-gray-500 font-medium tracking-tight">Bitiruvchilarga keng imkoniyatlar</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pt-6">
+                    <a href="/admission" class="inline-flex items-center space-x-3 bg-[#001529] text-white px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-primary transition-all shadow-xl">
+                        <span><%= t('apply') %></span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+        <h2 class="text-xs font-black text-primary uppercase tracking-[0.3em] mb-4"><%= t('our_values') %></h2>
+        <h3 class="text-3xl sm:text-4xl font-black text-gray-900 uppercase"><%= t('principles') %></h3>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-12 rounded-[50px] shadow-xl shadow-blue-900/5 text-center space-y-6 hover:-translate-y-2 transition-transform border border-transparent hover:border-gray-100">
+            <div class="w-20 h-20 bg-blue-50 text-primary rounded-3xl mx-auto rotate-12 flex items-center justify-center">
+                <i class="fas fa-lightbulb text-3xl -rotate-12"></i>
+            </div>
+            <h4 class="text-lg font-black text-gray-900 uppercase tracking-tighter"><%= t('innovation') %></h4>
+            <p class="text-sm text-gray-500 leading-relaxed font-medium"><%= t('innovation_desc') %></p>
+        </div>
+        <div class="bg-white p-12 rounded-[50px] shadow-xl shadow-blue-900/5 text-center space-y-6 hover:-translate-y-2 transition-transform border border-transparent hover:border-gray-100">
+            <div class="w-20 h-20 bg-yellow-50 text-yellow-600 rounded-3xl mx-auto -rotate-6 flex items-center justify-center">
+                <i class="fas fa-heart text-3xl rotate-6"></i>
+            </div>
+            <h4 class="text-lg font-black text-gray-900 uppercase tracking-tighter"><%= t('patriotism') %></h4>
+            <p class="text-sm text-gray-500 leading-relaxed font-medium"><%= t('patriotism_desc') %></p>
+        </div>
+        <div class="bg-white p-12 rounded-[50px] shadow-xl shadow-blue-900/5 text-center space-y-6 hover:-translate-y-2 transition-transform border border-transparent hover:border-gray-100">
+            <div class="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-3xl mx-auto rotate-3 flex items-center justify-center">
+                <i class="fas fa-chess-knight text-3xl -rotate-3"></i>
+            </div>
+            <h4 class="text-lg font-black text-gray-900 uppercase tracking-tighter"><%= t('strategy') %></h4>
+            <p class="text-sm text-gray-500 leading-relaxed font-medium"><%= t('strategy_desc') %></p>
+        </div>
+    </div>
+</section>

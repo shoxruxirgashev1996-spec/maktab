@@ -1,0 +1,45 @@
+<section class="bg-gray-50 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-16">
+            <h2 class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-primary"><%= t('news') %></h2>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tight"><%= lang === 'uz' ? 'Maktabimiz hayotidagi so\'nggi ma\'lumotlar' : (lang === 'ru' ? 'Последняя информация о жизни нашей школы' : 'Latest info about our school life') %></h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <% news.forEach(item => { %>
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-xl shadow-blue-900/5 border border-gray-100 hover:shadow-2xl transition-all duration-500 flex flex-col h-full transform hover:-translate-y-2">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="<%= item.image %>" alt="<%= item.title[lang] %>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-0 left-0 bg-primary text-white px-5 py-3 rounded-br-3xl flex flex-col items-center justify-center shadow-lg z-10">
+                            <span class="text-lg font-black leading-none"><%= new Date(item.date).getDate() %></span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest mt-1 opacity-80">
+                                <%= new Date(item.date).toLocaleString(lang, { month: 'short' }) %>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-primary transition-colors leading-tight uppercase tracking-tight">
+                            <%= item.title[lang] %>
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                            <%= item.content[lang].substring(0, 150) %>...
+                        </p>
+                        <div class="mt-auto pt-6 border-t border-gray-50 flex justify-between items-center">
+                            <a href="/news/<%= item.id %>" class="text-xs font-black text-primary uppercase tracking-[0.2em] flex items-center group/btn">
+                                <%= t('read_more') %> <i class="fas fa-chevron-right ml-2 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            <% if (news.length === 0) { %>
+                <div class="col-span-full py-24 text-center">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
+                        <i class="fas fa-newspaper text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-400 uppercase tracking-widest"><%= lang === 'uz' ? 'Hozircha yangiliklar yo\'q' : (lang === 'ru' ? 'Новостей пока нет' : 'No news found') %></h3>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</section>

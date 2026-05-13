@@ -1,0 +1,33 @@
+<section class="bg-gray-50 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-[#003366]"><%= t('gallery') %></h2>
+            <h1 class="text-4xl font-black text-gray-900 uppercase tracking-tight"><%= lang === 'uz' ? 'Maktab Galereyasi' : (lang === 'ru' ? 'Галерея школы' : 'School Gallery') %></h1>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <% images.forEach((img, i) => { %>
+                <div class="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl shadow-blue-900/5 cursor-pointer">
+                    <img src="<%= img.image %>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+                        <div>
+                            <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-[8px] font-black uppercase tracking-widest"><%= img.category %></span>
+                            <h4 class="text-white font-bold text-lg mt-2"><%= img.title %></h4>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            <% if (images.length === 0) { %>
+                <!-- Static examples if DB is empty -->
+                <% for(let i=1; i<=6; i++) { %>
+                    <div class="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl shadow-blue-900/5 cursor-pointer">
+                        <img src="https://picsum.photos/seed/gal<%= i %>/800/600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+                            <h4 class="text-white font-bold font-sm">Maktab tadbirlaridan lavhalar</h4>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</section>

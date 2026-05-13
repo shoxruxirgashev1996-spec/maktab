@@ -1,0 +1,72 @@
+<section class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <div>
+                <div class="mb-12">
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-[#003366]"><%= t('contact_us') %></h2>
+                    <h1 class="text-4xl font-black text-gray-900 uppercase tracking-tight">Savollaringiz bormi?</h1>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-[#003366] group-hover:bg-[#003366] group-hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">Manzil</h4>
+                            <p class="text-gray-500 font-medium"><%= t('address') %></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-phone-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">Telefon</h4>
+                            <p class="text-gray-500 font-medium">+998 (71) 123-45-67, +998 (71) 123-45-68</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">Email</h4>
+                            <p class="text-gray-500 font-medium">info@piima-school.uz, admin@piima-school.uz</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 rounded-[40px] overflow-hidden shadow-2xl shadow-blue-900/10 border border-gray-100 h-80 grayscale hover:grayscale-0 transition-all duration-700">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11984.181816155943!2d69.31780829999999!3d41.3296238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef4de56784d53%3A0xc3f8376510a76f2f!2sIT%20Park!5e0!3m2!1sen!2suz!4v1715104000000!5m2!1sen!2suz" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-[48px] p-12 border border-gray-100">
+                <div class="mb-10">
+                    <h3 class="text-2xl font-black text-[#003366] uppercase tracking-tight"><%= t('send') %></h3>
+                    <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-2">Tez orada siz bilan bog'lanamiz</p>
+                </div>
+
+                <form action="/message" method="POST" class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1"><%= t('full_name') %></label>
+                        <input type="text" name="name" required class="w-full px-6 py-5 bg-white border border-gray-100 rounded-[24px] focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-bold text-gray-900 shadow-sm" placeholder="Ism Sharofat">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Email manzilingiz</label>
+                        <input type="email" name="email" required class="w-full px-6 py-5 bg-white border border-gray-100 rounded-[24px] focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-bold text-gray-900 shadow-sm" placeholder="example@mail.com">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1"><%= t('message') %></label>
+                        <textarea name="message" rows="6" required class="w-full px-6 py-5 bg-white border border-gray-100 rounded-[24px] focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all font-bold text-gray-900 shadow-sm" placeholder="Xabaringizni bu yerga yozing..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-5 bg-[#003366] text-white rounded-[24px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-blue-800 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center">
+                        <%= t('send') %> <i class="fas fa-paper-plane ml-3"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

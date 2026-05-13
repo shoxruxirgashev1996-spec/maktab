@@ -1,0 +1,65 @@
+<div class="pt-20 pb-32">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex mb-10 text-xs font-black uppercase tracking-widest text-gray-400">
+            <a href="/" class="hover:text-primary">Bosh sahifa</a>
+            <span class="mx-3 text-gray-300">/</span>
+            <a href="/news" class="hover:text-primary">Yangiliklar</a>
+            <span class="mx-3 text-gray-300">/</span>
+            <span class="text-primary"><%= item.title[lang] %></span>
+        </nav>
+
+        <article class="bg-white rounded-[40px] overflow-hidden shadow-2xl shadow-blue-900/5 border border-gray-100">
+            <div class="relative h-[400px] sm:h-[500px]">
+                <img src="<%= item.image %>" alt="<%= item.title[lang] %>" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div class="absolute bottom-10 left-10 text-white">
+                    <span class="px-4 py-1.5 bg-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block shadow-lg">
+                        <%= item.category %>
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight max-w-2xl">
+                        <%= item.title[lang] %>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="p-10 sm:p-16 space-y-12">
+                <div class="flex items-center justify-between py-6 border-y border-gray-50">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-calendar-alt text-xl"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sana</span>
+                            <span class="text-sm font-bold text-gray-900"><%= new Date(item.date).toLocaleDateString() %></span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="https://t.me/share/url?url=<%= encodeURIComponent('https://' + settings.siteName + '/news/' + item.id) %>" class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent('https://' + settings.siteName + '/news/' + item.id) %>" class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+
+                <div class="prose prose-blue max-w-none">
+                    <div class="text-gray-600 text-lg leading-relaxed whitespace-pre-line font-medium">
+                        <%= item.content[lang] %>
+                    </div>
+                </div>
+
+                <div class="pt-16 border-t border-gray-50 flex flex-col sm:flex-row items-center justify-between gap-8">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-600/20">
+                            <i class="fas fa-info-circle text-2xl"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest"><%= lang === 'uz' ? 'Savollaringiz bormi?' : (lang === 'ru' ? 'Есть вопросы?' : 'Have questions?') %></h4>
+                            <p class="text-sm font-bold text-gray-900"><%= lang === 'uz' ? 'Biz bilan bog\'laning' : (lang === 'ru' ? 'Свяжитесь с нами' : 'Contact us') %></p>
+                        </div>
+                    </div>
+                    <a href="/contact" class="px-8 py-4 bg-gray-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-primary transition-all">
+                        <%= lang === 'uz' ? 'ALOQA' : (lang === 'ru' ? 'СВЯЗАТЬСЯ' : 'CONTACT') %>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
